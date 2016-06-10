@@ -21,7 +21,9 @@ class QuestionsController < ApplicationController
 		#puts record.inspect
 		
 		# Insert the question to the database
-	    Question.create(the_question: record[0], answer: record[1], distractors: record[2])
+		if !(Question.where(:the_question => record[0]).present?)
+	      Question.create(the_question: record[0], answer: record[1], distractors: record[2])
+	    end  
 	}
 
 	f.close
