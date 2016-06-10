@@ -14,10 +14,10 @@ var QuestionList = React.createClass({
  	// });
 
   	//var questionNodes = questionArray.map(function(questionInfo) {
-  	var QuestionNodes = this.props.data.map(function(QuestionInfo) {
+  	var questionNodes = this.props.data.map(function(questionInfo) {
       return (
         <QuestionBox theQuestion={questionInfo.the_question} answer={questionInfo.answer}
-          key={questionInfo.id}>
+          distractors={questionInfo.distractors} key={questionInfo.id}>
          </QuestionBox>
       );
     });

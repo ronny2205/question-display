@@ -5,23 +5,17 @@ var QuestionPage = React.createClass({
   },
 
   componentDidMount: function() {
-	$(function() {
-	  	var questionArray = []	
-		$.get("/questions").success( function( data ) {
-		   $.each(data, function(index, question) {
-		      questionArray.push(question);
-		   });
-		});
-	 });
-
-    this.setState({data: questionArray});
+	var component = this;
+	   $.get("/questions").success( function( data ) {
+	      component.setState({data: data});
+	});
   },
 
   
 
   render: function() {
     return (
-      <div className="">
+      <div className="container">
         
     	  <h3>Questions</h3>
     	
