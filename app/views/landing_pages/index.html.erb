@@ -1,13 +1,13 @@
-<h1>Questions</h1>
+<%= react_component 'QuestionPage' %>
 
 <script>
- $(function() {
+//  $(function() {
 
-   // Pulling all the data from the api with an ajax get request
-   $.get("/questions").success( function( data ) {
-      $.each(data, function(index,  question) {
-        console.log(question.distractors);
-      });
-    });
- });
+//    // Pulling all the data from the api with an ajax get request
+//    $.get("/questions").success( function( data ) {
+//       $.each(data, function(index,  question) {
+//         console.log(question.distractors);
+//       });
+//     });
+//  });
 </script>
