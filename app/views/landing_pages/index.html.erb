@@ -1,1 +1,13 @@
 <h1>Questions</h1>
+
+<script>
+ $(function() {
+
+   // Pulling all the data from the api with an ajax get request
+   $.get("/questions").success( function( data ) {
+      $.each(data, function(index,  question) {
+        console.log(question.distractors);
+      });
+    });
+ });
+</script>
