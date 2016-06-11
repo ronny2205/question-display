@@ -10,9 +10,7 @@ var QuestionBox = React.createClass({
             <p><span className="text-muted">Answer:</span> {this.props.answer}</p>
             <p><span className="text-muted">Distractors:</span> {this.props.distractors}</p>
 
-            <button type="button" className="btn btn-default pull-right">
-			    <span className="glyphicon glyphicon-search"></span>
-			</button>
+            <EditQuestion/>
 
           </div>
         </div>            
