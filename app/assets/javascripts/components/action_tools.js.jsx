@@ -2,11 +2,13 @@ var ActionTools = React.createClass({
 
   render: function() {
     return (
-    	<div className="btn-toolbar pull-right">
+    	<div className="row toolbar-row">
+
+    	  <div className="btn-toolbar col-sm-6">
 
           
-			  <button type="button" className="btn btn-primary">Add a question</button>
-			  <button type="button" className="btn btn-primary">Show a random question</button>
+			  <button type="button" className="btn btn-primary">Add question</button>
+			  <button type="button" className="btn btn-primary">Show random question</button>
 
 			  <div className="btn-group" role="group">
 			    <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -20,7 +22,9 @@ var ActionTools = React.createClass({
 			    </ul>
 			  </div>
 			
-    	</div>
+    	  </div>
+    	  
+    	</div>  
 
 
     );
