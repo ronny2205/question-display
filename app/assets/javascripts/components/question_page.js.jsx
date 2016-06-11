@@ -15,15 +15,13 @@ var QuestionPage = React.createClass({
 
   render: function() {
     return (
+     
       <div className="container">
-        
-    	  <h3>Questions</h3>
-    	
-    	  <QuestionList data={this.state.data} />
-    	  
-    	
+    	<PageHeader />
+    	<ActionTools />
+    	<QuestionList data={this.state.data} />
       </div>
-
+      
     );
   }
 });

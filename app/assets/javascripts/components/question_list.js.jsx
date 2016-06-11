@@ -23,8 +23,8 @@ var QuestionList = React.createClass({
     });
 
     return (
-
-    	<div className="">
+     
+    	<div className="row clr">
     	  {questionNodes}
     	</div>
 
