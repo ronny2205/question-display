@@ -6,17 +6,22 @@ var QuestionPage = React.createClass({
 	$.get("/questions?page=" + page_num).success( function( data ) {
 	   	  // Separate the num of pages from the questions array
 	   	  var numOfPages = data.pop();
-	      component.setState({data: data,
-	      					  pagingInfo: {
+	      // component.setState({data: data,
+	      // 					  pagingInfo: {
+		     //  					  numOfPages: numOfPages,
+		     //  					  curPage: page_num
+		     //  				  },
+		     component.setState({data: data,
+	      					  
 		      					  numOfPages: numOfPages,
 		      					  curPage: page_num
-		      				  },
-		      				  randomQ: {
-		      				  	the_quesion: "",
-		      				  	answer: "",
-		      				  	distractors: "",
-		      				  	id: ""
-		      				  }	  
+		      				  
+		      				  // randomQ: {
+		      				  // 	the_question: "",
+		      				  // 	answer: "",
+		      				  // 	distractors: "",
+		      				  // 	id: ""
+		      				  // }	  
 	      					});
 	});
   },
@@ -48,13 +53,23 @@ var QuestionPage = React.createClass({
       //var randomQuesInfo = data;
       // window.x = data.answer;
       // console.log(x);
-      this.setState({randomQ: {
-      						the_quesion: data.the_question,
+      // this.setState({randomQ: {
+      // 						the_question: data.the_question,
+      // 						answer: data.answer,
+      // 						distractors: data.distractors,
+      // 						id: data.id
+      // 					    }
+      // 					 });
+  	this.setState({
+      						the_question: data.the_question,
       						answer: data.answer,
       						distractors: data.distractors,
       						id: data.id
-      					    }
+      					    
       					 });
+      					    
+      					 
+
   	}.bind(this));
 
   },
@@ -66,8 +81,10 @@ var QuestionPage = React.createClass({
     	<PageHeader />
     	<ActionTools onRandom={this.handleRandomQ} />
     	<QuestionList data={this.state.data} />   
-    	<Pagination onPagingClick={this.handlePaging} pagingInfo={this.state.pagingInfo} />
-    	<RandomQuestion randomQuesInfo={this.state.randomQ} />
+    	
+    	<Pagination onPagingClick={this.handlePaging} numOfPages={this.state.numOfPages} curPage={this.state.curPage}/>
+    	<RandomQuestion the_question={this.state.the_question} answer={this.state.answer} distractors={this.state.distractors}/>
+    	
     	 
       </div>
       

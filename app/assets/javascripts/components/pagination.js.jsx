@@ -11,11 +11,14 @@ var Pagination = React.createClass({
    //console.log(type);
    
    if (type == "next") {
-     var newPage = this.props.pagingInfo.curPage + 1;
+     //var newPage = this.props.pagingInfo.curPage + 1;
+     var newPage = this.props.curPage + 1;
    } else if (type == "prev") {
-     var newPage = this.props.pagingInfo.curPage - 1;
+     //var newPage = this.props.pagingInfo.curPage - 1;
+     var newPage = this.props.curPage - 1;
    } else if (type == "last") {
-     var newPage = this.props.pagingInfo.numOfPages;
+     //var newPage = this.props.pagingInfo.numOfPages;
+     var newPage = this.props.numOfPages;
    } else if (type == "first") {
      var newPage = 1;
    }
@@ -44,7 +47,7 @@ var Pagination = React.createClass({
 			      </a>
 			    </li>
 
-			    <li className="active"><a>88</a></li>
+			    <li className="active"><a>{this.props.curPage}</a></li>
 			    
 			    <li>
 			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'next')} aria-label="Next">
