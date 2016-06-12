@@ -1,21 +1,41 @@
 // The top component
 var QuestionPage = React.createClass({
+
+  retrieveData: function(page_num) {
+    var component = this;
+	$.get("/questions?page=" + page_num).success( function( data ) {
+	   	  // Separate the num of pages from the questions array
+	   	  var numOfPages = data.pop();
+	      component.setState({data: data,
+	      					  pagingInfo: {
+		      					  numOfPages: numOfPages,
+		      					  curPage: page_num
+		      				  }	  
+	      					});
+	});
+  },
+
   getInitialState: function() {
     return {data: []};
   },
 
   componentDidMount: function() {
-	var component = this;
-	   $.get("/questions?page=1").success( function( data ) {
+  	this.retrieveData(1);
+	//var component = this;
+	   
+	   //$.get("/questions?page=" + x).success( function( data ) {
 	   	  // Separate the num of pages from the questions array
-	   	  var numOfPages = data.pop();
-	      component.setState({data: data,
-	      					  numOfPages: numOfPages
-	      					});
-	});
+	   	 // var numOfPages = data.pop();
+	     // component.setState({data: data,
+	      					//  numOfPages: numOfPages
+	      		//			});
+	//});
   },
 
-  
+  handlePaging: function(page_num) {
+    this.retrieveData(page_num.curPage);
+  },
+
 
   render: function() {
     return (
@@ -24,7 +44,7 @@ var QuestionPage = React.createClass({
     	<PageHeader />
     	<ActionTools />
     	<QuestionList data={this.state.data} />   
-    	<Pagination data={this.state.numOfPages} />
+    	<Pagination onPagingClick={this.handlePaging} pagingInfo={this.state.pagingInfo} />
       </div>
       
     );
