@@ -8,7 +8,7 @@ var Pagination = React.createClass({
   handlePagingClick: function(type) {
    //e.preventDefault();
    // console.log(this.state.page);
-   console.log(type);
+   //console.log(type);
    
    if (type == "next") {
      var newPage = this.props.pagingInfo.curPage + 1;

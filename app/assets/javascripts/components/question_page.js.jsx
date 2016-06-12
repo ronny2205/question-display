@@ -10,6 +10,12 @@ var QuestionPage = React.createClass({
 	      					  pagingInfo: {
 		      					  numOfPages: numOfPages,
 		      					  curPage: page_num
+		      				  },
+		      				  randomQ: {
+		      				  	the_quesion: "",
+		      				  	answer: "",
+		      				  	distractors: "",
+		      				  	id: ""
 		      				  }	  
 	      					});
 	});
@@ -36,15 +42,33 @@ var QuestionPage = React.createClass({
     this.retrieveData(page_num.curPage);
   },
 
+  handleRandomQ: function() {
+  	$.get("/questions?rand=yes").success( function( data ) {
+      //console.log(data);
+      //var randomQuesInfo = data;
+      // window.x = data.answer;
+      // console.log(x);
+      this.setState({randomQ: {
+      						the_quesion: data.the_question,
+      						answer: data.answer,
+      						distractors: data.distractors,
+      						id: data.id
+      					    }
+      					 });
+  	}.bind(this));
+
+  },
 
   render: function() {
     return (
      
       <div className="container">
     	<PageHeader />
-    	<ActionTools />
+    	<ActionTools onRandom={this.handleRandomQ} />
     	<QuestionList data={this.state.data} />   
     	<Pagination onPagingClick={this.handlePaging} pagingInfo={this.state.pagingInfo} />
+    	<RandomQuestion randomQuesInfo={this.state.randomQ} />
+    	 
       </div>
       
     );

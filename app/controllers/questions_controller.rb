@@ -2,15 +2,21 @@ class QuestionsController < ApplicationController
   def index
   	process_dump
 
-    @page_num = params[:page]
+    if params[:rand].present?
+  	    # Displaying a random question
+  	    render json: Question.order("RANDOM()").first
+    else 
+	    # Pagination of all questions in the db in json format	
+	    @page_num = params[:page]
 
-  	if @page_num.present?
-      pagination
-  	else
-  	  # Displaying all questions in the db in json format	
-  	  @questions = Question.all	
-  	  render json: @questions
-  	end  
+	  	if @page_num.present?
+	      pagination
+	  	else
+	  	  # Displaying all questions in the db in json format	
+	  	  @questions = Question.all	
+	  	  render json: @questions
+	  	end 
+	end  	 
   end
 
    def pagination
