@@ -55,10 +55,10 @@ class QuestionsController < ApplicationController
 		# Separating the record to question, answer and distractors
 		record = line.strip.split('|')
 		# Separating the distractors
-		record[2] = record[2].split(',')
-		# Removing leading and trailing whitespaces from the
-		record[2] = record[2].map {|item| item.strip}
-		#puts record.inspect
+		# record[2] = record[2].split(',')
+		# # Removing leading and trailing whitespaces from the
+		# record[2] = record[2].map {|item| item.strip}
+		# #puts record.inspect
 		
 		# Insert the question to the database
 		if !(Question.where(:the_question => record[0]).present?)
