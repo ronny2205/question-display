@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   def index
-  	process_dump
+  	#process_dump
 
     if params[:rand].present?
   	    # Displaying a random question
