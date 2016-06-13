@@ -43,33 +43,27 @@ var QuestionPage = React.createClass({
 	//});
   },
 
-  handlePaging: function(page_num) {
-    this.retrieveData(page_num.curPage);
+  handlePaging: function(info) {
+    this.retrieveData(info.curPage);
+  },
+
+  handleFiltering: function(info) {
+  	$.get("/questions?filter=" + info.filterType).success( function( data ) {
+	   	  
+		     this.setState({data: data,
+	  						});
+	}.bind(this));
+
   },
 
   handleRandomQ: function() {
   	$.get("/questions?rand=yes").success( function( data ) {
-      //console.log(data);
-      //var randomQuesInfo = data;
-      // window.x = data.answer;
-      // console.log(x);
-      // this.setState({randomQ: {
-      // 						the_question: data.the_question,
-      // 						answer: data.answer,
-      // 						distractors: data.distractors,
-      // 						id: data.id
-      // 					    }
-      // 					 });
   	this.setState({
       						the_question: data.the_question,
       						answer: data.answer,
       						distractors: data.distractors,
       						id: data.id
-      					    
       					 });
-      					    
-      					 
-
   	}.bind(this));
 
   },
@@ -88,7 +82,6 @@ var QuestionPage = React.createClass({
   },
 
   handleEditedQuestion: function(questionInfo) {
-    
     $.ajax({
       dataType: 'json',
       type: 'PUT',
@@ -110,7 +103,6 @@ var QuestionPage = React.createClass({
   },
 
   handleAddedQuestion: function(questionInfo) {
-    
     $.ajax({
       dataType: 'json',
       type: 'POST',
@@ -138,7 +130,7 @@ var QuestionPage = React.createClass({
      
       <div className="container">
     	<PageHeader />
-    	<ActionTools onRandom={this.handleRandomQ}/>
+    	<ActionTools onRandom={this.handleRandomQ} onFilteringClick={this.handleFiltering}/>
     	<QuestionList onEditButton={this.handleEditButton} data={this.state.data} />   
     	
     	<Pagination onPagingClick={this.handlePaging} numOfPages={this.state.numOfPages} curPage={this.state.curPage} />

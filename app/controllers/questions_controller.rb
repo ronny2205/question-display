@@ -1,19 +1,45 @@
 class QuestionsController < ApplicationController
-	
+
   def index
-    if params[:rand].present?
+    
+    # Params received from the get request
+    rand = params[:rand] # for random question display
+    @page_num = params[:page] # page number for pagination
+    filter = params[:filter]  # for filtering questions
+
+
+    if rand.present?
   	    # Displaying a random question
   	    render json: Question.order("RANDOM()").first
     else 
-	    # Pagination of all questions in the db in json format	
-	    @page_num = params[:page]
+        # An ordered array of all the questions
+        ordered_questions = Question.order('id').all
 
-	  	if @page_num.present?
+        # Filtering questions
+        if filter.present?
+          relevant_questions = []
+          # Filtering by positive answer
+          if filter == "positive"		
+	          ordered_questions.each do |q|
+	          	relevant_questions << q if q.answer.to_i > 0  
+	         end
+	      # Filtering by negative answer   
+	      elsif filter == "negative"
+	         ordered_questions.each do |q|
+	          	relevant_questions << q if q.answer.to_i < 0  
+	         end	  
+	      end   
+          render json: relevant_questions
+        
+
+	    # Pagination of all questions in the db in json format	
+	    
+
+	  	elsif @page_num.present?
 	      pagination
 	  	else
 	  	  # Displaying all questions in the db in json format	
-	  	  @questions = Question.order('id').all
-	  	  render json: @questions
+	  	  render json: ordered_questions
 	  	end 
 	end  	 
   end

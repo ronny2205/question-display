@@ -4,6 +4,30 @@ var ActionTools = React.createClass({
     this.props.onRandom();
   },
 
+  handleFilteringClick: function(type) {
+   
+   // if (type == "positive") {
+   //   var newPage = this.props.curPage + 1;
+   // } else if (type == "negative") {
+   //   var newPage = this.props.curPage - 1;
+   // } else if (type == "all") {
+   //   var newPage = this.props.numOfPages;
+   // } 
+
+  //  this.setState ({pageNum: newPage});
+  // //if (newPage == 1) {
+  // //  $('prevButton').prop('disabled', true);
+  //  // $('prevButton').addClass('disabled');
+
+  //console.log(type);
+
+  
+
+    this.props.onFilteringClick({filterType: type});
+    //this.setState({page: this.props.pagingInfo.curPage});
+
+  },
+
   render: function() {
     return (
     	<div className="row toolbar-row">
@@ -25,9 +49,9 @@ var ActionTools = React.createClass({
 			      <span className="caret"></span>
 			    </button>
 			    <ul className="dropdown-menu">
-			      <li><a href="#">Positive answers</a></li>
-			      <li><a href="#">Negative answers</a></li>
-			      <li><a href="#">No distractors</a></li>
+			      <li><a href="javascript:;" onClick={this.handleFilteringClick.bind(this, 'positive')}>Positive answers</a></li>
+			      <li><a href="javascript:;" onClick={this.handleFilteringClick.bind(this, 'negative')}>Negative answers</a></li>
+			      <li><a href="javascript:;" onClick={this.handleFilteringClick.bind(this, 'all')}>All questions</a></li>
 			    </ul>
 			  </div>
 			
