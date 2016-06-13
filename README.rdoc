@@ -21,7 +21,7 @@ Question Doohickey
       Pagination
       RandomQuestion
       EditModal
-    AddModal
+      AddModal
 
   
 * The API was built with Ruby on Rails and can be accessed at https://question-display-ronny.herokuapp.com/questions
