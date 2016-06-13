@@ -46,39 +46,35 @@ var Pagination = React.createClass({
   render: function() {
   	
     return (
-
     	<div>
-    	    <nav>
-			  <ul className="pagination pull-right">
-			    <li>
-			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'first')} className={this.dynamicClassPrev()} aria-label="First">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    <li>
-			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'prev')} className={this.dynamicClassPrev()} aria-label="Previous">
-			        <span aria-hidden="true">&lsaquo;</span>
-			      </a>
-			    </li>
+    	  <nav>
+			    <ul className="pagination pull-right">
+			      <li>
+			        <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'first')} className={this.dynamicClassPrev()} aria-label="First">
+			          <span aria-hidden="true">&laquo;</span>
+			        </a>
+			      </li>
+			      <li>
+			        <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'prev')} className={this.dynamicClassPrev()} aria-label="Previous">
+			          <span aria-hidden="true">&lsaquo;</span>
+			        </a>
+			      </li>
 
-			    <li className="active"><a>{this.props.curPage}</a></li>
+			      <li className="active"><a>{this.props.curPage}</a></li>
 			    
-			    <li>
-			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'next')} className={this.dynamicClassNext()} aria-label="Next">
-			        <span aria-hidden="true">&rsaquo;</span>
-			      </a>
-			    </li>
-			    <li>
-			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'last')} className={this.dynamicClassNext()} aria-label="Last">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			  </ul>
-			</nav>
-    	
+			      <li>
+			        <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'next')} className={this.dynamicClassNext()} aria-label="Next">
+			          <span aria-hidden="true">&rsaquo;</span>
+			        </a>
+			      </li>
+			      <li>
+			        <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'last')} className={this.dynamicClassNext()} aria-label="Last">
+			          <span aria-hidden="true">&raquo;</span>
+			        </a>
+			      </li>
+			    </ul>
+			  </nav>
     	</div>
-
-
     );
   }
 });

@@ -1,33 +1,21 @@
 // The top component
 var QuestionPage = React.createClass({
 
+  getInitialState: function() {
+    return {data: [], filterType: "all"};
+  },	
+
   retrieveData: function(page_num, filterType) {
     var component = this;
 	$.get("/questions?page=" + page_num + "&filter=" + filterType).success( function( data ) {
-	   	  // Separate the num of pages from the questions array
-	   	  var numOfPages = data.pop();
-	      // component.setState({data: data,
-	      // 					  pagingInfo: {
-		     //  					  numOfPages: numOfPages,
-		     //  					  curPage: page_num
-		     //  				  },
-		     component.setState({data: data,
-	      					  
-		      					  numOfPages: numOfPages,
-		      					  curPage: page_num,
-		      				      filterType: filterType
-		      				  // randomQ: {
-		      				  // 	the_question: "",
-		      				  // 	answer: "",
-		      				  // 	distractors: "",
-		      				  // 	id: ""
-		      				  // }	  
-	      					});
+	  // Separate the num of pages from the questions array
+	  var numOfPages = data.pop();
+	  component.setState({data: data,
+		      			  numOfPages: numOfPages,
+		      			  curPage: page_num,
+		      			  filterType: filterType  
+	      				 });
 	});
-  },
-
-  getInitialState: function() {
-    return {data: [], filterType: "all"};
   },
 
   componentDidMount: function() {
@@ -52,27 +40,20 @@ var QuestionPage = React.createClass({
 
   handleRandomQ: function() {
   	$.get("/questions?rand=yes").success( function( data ) {
-  	this.setState({
-      						the_question: data.the_question,
-      						answer: data.answer,
-      						distractors: data.distractors,
-      						id: data.id
-      					 });
+  	    this.setState({the_question: data.the_question,
+      				   answer: data.answer,
+      				   distractors: data.distractors,
+      				   id: data.id
+      				  });
   	}.bind(this));
-
   },
 
   handleEditButton: function(questionInfo) {
-    //console.log(questionInfo.answer);
-    //var theQuestion = questionInfo.theQuestion;
-    this.setState({
-      						questionToEdit: questionInfo.theQuestion,
-      						answerToEdit: questionInfo.answer,
-      						distractorsToEdit: questionInfo.distractors,
-      						idToEdit: questionInfo.questionId
-      					    
-      					 });
-    //console.log(theQuestion);
+    this.setState({questionToEdit: questionInfo.theQuestion,
+      			   answerToEdit: questionInfo.answer,
+      			   distractorsToEdit: questionInfo.distractors,
+      			   idToEdit: questionInfo.questionId  
+      			  });
   },
 
   handleEditedQuestion: function(questionInfo) {
@@ -117,23 +98,17 @@ var QuestionPage = React.createClass({
     });
   },
 
-  
-
   render: function() {
     return (
-     
       <div className="container">
     	<PageHeader />
     	<ActionTools onRandom={this.handleRandomQ} onFilteringClick={this.handleFiltering}/>
     	<QuestionList onEditButton={this.handleEditButton} data={this.state.data} />   
-    	
     	<Pagination onPagingClick={this.handlePaging} numOfPages={this.state.numOfPages} curPage={this.state.curPage} />
     	<RandomQuestion the_question={this.state.the_question} answer={this.state.answer} distractors={this.state.distractors} />
     	<EditModal onEditSubmit={this.handleEditedQuestion} idToEdit={this.state.IdToEdit} questionToEdit={this.state.questionToEdit} answerToEdit={this.state.answerToEdit} distractorsToEdit={this.state.distractorsToEdit}/>
     	<AddModal onAddSubmit={this.handleAddedQuestion} />
-    	 
-      </div>
-      
+      </div>   
     );
   }
 });

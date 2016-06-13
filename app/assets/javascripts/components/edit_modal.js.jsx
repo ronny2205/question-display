@@ -1,48 +1,24 @@
 var EditModal = React.createClass({
 
   getInitialState: function() {
-  	//console.log(this.props.questionToEdit);
-
-    return {
-
-    	 //    questionToEdit: this.props.questionToEdit,
-    	   
-    		// answerToEdit: this.props.answerToEdit,
-    		
-    		// distractorsToEdit: this.props.distractorsToEdit
-
-    		questionToEdit: "",
-    	   
-    		answerToEdit: "",
-    		
-    		distractorsToEdit: ""
-
-    		};
+    return {questionToEdit: "",
+    		    answerToEdit: "",
+    		    distractorsToEdit: ""
+    		   };
   },
 
   handleClose: function() {
-    this.setState({
-                questionToEdit: "",
-                answerToEdit: "",
-                distractorsToEdit: ""
-                });
+    this.setState({questionToEdit: "",
+                   answerToEdit: "",
+                   distractorsToEdit: ""
+                  });
   },
 
-  // componentWillMount: function() {
-  //       this.setState({
-		// 			questionToEdit: this.props.questionToEdit,
-  //   				answerToEdit: this.props.answerToEdit,
-  //   				distractorsToEdit: this.props.distractorsToEdit
-  //       			});
-  //       },
-
-
   componentWillReceiveProps: function(nextProps) {
-    this.setState({
-         questionToEdit: nextProps.questionToEdit,
-           answerToEdit: nextProps.answerToEdit,
-           distractorsToEdit: nextProps.distractorsToEdit
-    });
+    this.setState({questionToEdit: nextProps.questionToEdit,
+                   answerToEdit: nextProps.answerToEdit,
+                   distractorsToEdit: nextProps.distractorsToEdit
+                  });
   },
 
   handleQChange: function(e) {
@@ -66,9 +42,9 @@ var EditModal = React.createClass({
       return;
     }
     this.props.onEditSubmit({questionToEdit: questionToEdit, 
-    				         answerToEdit: answerToEdit,
-    				         distractorsToEdit: distractorsToEdit 
-    				        });
+    				                 answerToEdit: answerToEdit,
+    				                 distractorsToEdit: distractorsToEdit 
+    				                });
     
     // closing the modal after the user submitted the info
     $('#editModal').modal('hide');
@@ -88,23 +64,20 @@ var EditModal = React.createClass({
 		        <h4 className="modal-title">Edit the question</h4>
 		      </div>
 		      <div className="modal-body">
-		        <form>
-		            
-		            <div className="form-group">
-		              <label htmlFor="question-content" className="form-control-label">Question:</label>
-		              <textarea className="form-control" id="question-content" value={this.state.questionToEdit} onChange={this.handleQChange}></textarea>
-		            </div>
-		            <div className="form-group">
-		              <label htmlFor="answer-content" className="form-control-label">Answer:</label>
-		              <input type="text" className="form-control" id="answer-content" value={this.state.answerToEdit} onChange={this.handleAChange}></input>
-		            </div>
-		            <div className="form-group">
-		              <label htmlFor="distractors-content" className="form-control-label">Distractors:</label>
-		              <input type="text" className="form-control" id="distractors-content" value={this.state.distractorsToEdit} onChange={this.handleDChange}></input>
-		            </div>
+		        <form>  
+		          <div className="form-group">
+		            <label htmlFor="question-content" className="form-control-label">Question:</label>
+		            <textarea className="form-control" id="question-content" value={this.state.questionToEdit} onChange={this.handleQChange}></textarea>
+		          </div>
+		          <div className="form-group">
+		            <label htmlFor="answer-content" className="form-control-label">Answer:</label>
+		            <input type="text" className="form-control" id="answer-content" value={this.state.answerToEdit} onChange={this.handleAChange}></input>
+		          </div>
+		          <div className="form-group">
+		            <label htmlFor="distractors-content" className="form-control-label">Distractors:</label>
+		            <input type="text" className="form-control" id="distractors-content" value={this.state.distractorsToEdit} onChange={this.handleDChange}></input>
+		          </div>
 		        </form>
-
-		        
 		      </div>
 		      <div className="modal-footer">
 		        <button onClick={this.handleClose} type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -113,8 +86,6 @@ var EditModal = React.createClass({
 		    </div>
 		  </div>
 		</div>
-
-
     );
   }
 });

@@ -21,5 +21,4 @@ RSpec.describe QuestionsController, type: :controller do
       expect(Question.last.the_question).to eq("why")
     end
   end
-
 end
