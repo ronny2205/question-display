@@ -74,17 +74,54 @@ var QuestionPage = React.createClass({
 
   },
 
+  handleEditButton: function(questionInfo) {
+    //console.log(questionInfo.answer);
+    //var theQuestion = questionInfo.theQuestion;
+    this.setState({
+      						questionToEdit: questionInfo.theQuestion,
+      						answerToEdit: questionInfo.answer,
+      						distractorsToEdit: questionInfo.distractors,
+      						idToEdit: questionInfo.questionId
+      					    
+      					 });
+    //console.log(theQuestion);
+  },
+
+  handleEditedQuestion: function(questionInfo) {
+    
+    $.ajax({
+      dataType: 'json',
+      type: 'PUT',
+      url: "/questions/" + this.state.idToEdit,
+      data: { question: {
+      		  the_question: questionInfo.questionToEdit,
+      		  answer: questionInfo.answerToEdit,
+      		  distractors: questionInfo.distractorsToEdit
+      }},
+
+      success: function(data) {
+      	  // refreshing the list of questions
+  		  this.retrieveData(this.state.curPage);
+  	  }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  
+
   render: function() {
     return (
      
       <div className="container">
     	<PageHeader />
     	<ActionTools onRandom={this.handleRandomQ} />
-    	<QuestionList data={this.state.data} />   
+    	<QuestionList onEditButton={this.handleEditButton} data={this.state.data} />   
     	
-    	<Pagination onPagingClick={this.handlePaging} numOfPages={this.state.numOfPages} curPage={this.state.curPage}/>
-    	<RandomQuestion the_question={this.state.the_question} answer={this.state.answer} distractors={this.state.distractors}/>
-    	
+    	<Pagination onPagingClick={this.handlePaging} numOfPages={this.state.numOfPages} curPage={this.state.curPage} />
+    	<RandomQuestion the_question={this.state.the_question} answer={this.state.answer} distractors={this.state.distractors} />
+    	<EditModal onEditSubmit={this.handleEditedQuestion} idToEdit={this.state.IdToEdit} questionToEdit={this.state.questionToEdit} answerToEdit={this.state.answerToEdit} distractorsToEdit={this.state.distractorsToEdit}/>
     	 
       </div>
       

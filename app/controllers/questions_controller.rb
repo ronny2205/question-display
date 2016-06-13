@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
 	      pagination
 	  	else
 	  	  # Displaying all questions in the db in json format	
-	  	  @questions = Question.all	
+	  	  @questions = Question.order('id asc').all
 	  	  render json: @questions
 	  	end 
 	end  	 
@@ -52,7 +52,7 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.permit(:the_question, :answer, :distractors)
+    params.require(:question).permit(:the_question, :answer, :distractors)
   end
 
 end
