@@ -1,9 +1,9 @@
 // The top component
 var QuestionPage = React.createClass({
 
-  retrieveData: function(page_num) {
+  retrieveData: function(page_num, filterType) {
     var component = this;
-	$.get("/questions?page=" + page_num).success( function( data ) {
+	$.get("/questions?page=" + page_num + "&filter=" + filterType).success( function( data ) {
 	   	  // Separate the num of pages from the questions array
 	   	  var numOfPages = data.pop();
 	      // component.setState({data: data,
@@ -14,8 +14,8 @@ var QuestionPage = React.createClass({
 		     component.setState({data: data,
 	      					  
 		      					  numOfPages: numOfPages,
-		      					  curPage: page_num
-		      				  
+		      					  curPage: page_num,
+		      				      filterType: filterType
 		      				  // randomQ: {
 		      				  // 	the_question: "",
 		      				  // 	answer: "",
@@ -27,33 +27,27 @@ var QuestionPage = React.createClass({
   },
 
   getInitialState: function() {
-    return {data: []};
+    return {data: [], filterType: "all"};
   },
 
   componentDidMount: function() {
-  	this.retrieveData(1);
-	//var component = this;
-	   
-	   //$.get("/questions?page=" + x).success( function( data ) {
-	   	  // Separate the num of pages from the questions array
-	   	 // var numOfPages = data.pop();
-	     // component.setState({data: data,
-	      					//  numOfPages: numOfPages
-	      		//			});
-	//});
+  	this.retrieveData(1, this.state.filterType);
   },
 
   handlePaging: function(info) {
-    this.retrieveData(info.curPage);
+    this.retrieveData(info.curPage, this.state.filterType);
   },
 
   handleFiltering: function(info) {
-  	$.get("/questions?filter=" + info.filterType).success( function( data ) {
-	   	  
-		     this.setState({data: data,
-	  						});
+  	// Get the first page of the filtered questions
+  	$.get("/questions?filter=" + info.filterType + "&page=1").success( function( data ) {
+        // Separate the num of pages from the questions array
+	   	var numOfPages = data.pop();
+		this.setState({data: data, 
+					  filterType: info.filterType,
+					  numOfPages: numOfPages,
+					  curPage: 1});
 	}.bind(this));
-
   },
 
   handleRandomQ: function() {

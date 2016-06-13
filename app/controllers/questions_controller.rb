@@ -27,16 +27,13 @@ class QuestionsController < ApplicationController
 	      elsif filter == "negative"
 	         ordered_questions.each do |q|
 	          	relevant_questions << q if q.answer.to_i < 0  
-	         end	  
+	         end
+	      # All questions   
+	      elsif filter == "all"
+	      	  relevant_questions = ordered_questions
 	      end   
-          render json: relevant_questions
-        
-
-	    # Pagination of all questions in the db in json format	
-	    
-
-	  	elsif @page_num.present?
-	      pagination
+          # Pagination of all relevant questions in json format	
+          pagination(relevant_questions, @page_num)
 	  	else
 	  	  # Displaying all questions in the db in json format	
 	  	  render json: ordered_questions
@@ -55,21 +52,22 @@ class QuestionsController < ApplicationController
     render json: question
   end
 
-  def pagination
+  def pagination(relevant_questions, page_num)
    	 # The pagination works with nine records per page
-     questions_num = Question.count
+
+     #questions_num = Question.count
+     questions_num = relevant_questions.length
      if questions_num % 9 == 0
        @num_of_pages = questions_num / 9
      else
        @num_of_pages = questions_num / 9 + 1
      end  
      # The index of the first question of the current page
-     first_ind = 9 * (@page_num.to_i - 1)
+     first_ind = 9 * (page_num.to_i - 1)
      last_ind = first_ind + 8
 
-     ordered_questions = Question.order('id').all
      @current_questions = []
-     ordered_questions.each_with_index do |q, i|
+     relevant_questions.each_with_index do |q, i|
          if i >= first_ind 
            if i <= last_ind
          	@current_questions << q

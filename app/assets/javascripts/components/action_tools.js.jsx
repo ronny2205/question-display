@@ -21,8 +21,8 @@ var ActionTools = React.createClass({
 
   //console.log(type);
 
-  
-
+   
+    
     this.props.onFilteringClick({filterType: type});
     //this.setState({page: this.props.pagingInfo.curPage});
 

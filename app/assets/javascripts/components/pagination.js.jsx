@@ -4,6 +4,11 @@ var Pagination = React.createClass({
     return {pageNum: 1};
   },
 
+  // Updating the state of pageNum
+  componentWillReceiveProps: function(nextProps) {
+    this.setState ({pageNum: nextProps.curPage});
+  },
+
   handlePagingClick: function(type) {
    
    if (type == "next") {
