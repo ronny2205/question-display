@@ -23,6 +23,11 @@ class QuestionsController < ApplicationController
     render json: question
   end
 
+  def create
+  	question = Question.create(question_params)
+    render json: question
+  end
+
   def pagination
    	 # The pagination works with nine records per page
      questions_num = Question.count

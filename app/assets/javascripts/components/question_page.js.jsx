@@ -109,6 +109,28 @@ var QuestionPage = React.createClass({
     });
   },
 
+  handleAddedQuestion: function(questionInfo) {
+    
+    $.ajax({
+      dataType: 'json',
+      type: 'POST',
+      url: "/questions/",
+      data: { question: {
+      		  the_question: questionInfo.questionToAdd,
+      		  answer: questionInfo.answerToAdd,
+      		  distractors: questionInfo.distractorsToAdd
+      }},
+
+      success: function(data) {
+      	  // refreshing the list of questions
+  		  this.retrieveData(this.state.curPage);
+  	  }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(status, err.toString());
+      }.bind(this)
+    });
+  },
+
   
 
   render: function() {
@@ -116,12 +138,13 @@ var QuestionPage = React.createClass({
      
       <div className="container">
     	<PageHeader />
-    	<ActionTools onRandom={this.handleRandomQ} />
+    	<ActionTools onRandom={this.handleRandomQ}/>
     	<QuestionList onEditButton={this.handleEditButton} data={this.state.data} />   
     	
     	<Pagination onPagingClick={this.handlePaging} numOfPages={this.state.numOfPages} curPage={this.state.curPage} />
     	<RandomQuestion the_question={this.state.the_question} answer={this.state.answer} distractors={this.state.distractors} />
     	<EditModal onEditSubmit={this.handleEditedQuestion} idToEdit={this.state.IdToEdit} questionToEdit={this.state.questionToEdit} answerToEdit={this.state.answerToEdit} distractorsToEdit={this.state.distractorsToEdit}/>
+    	<AddModal onAddSubmit={this.handleAddedQuestion} />
     	 
       </div>
       
