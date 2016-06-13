@@ -1,32 +1,51 @@
 var Pagination = React.createClass({
-   
-  // getInitialState: function() {
-  //   return {page: 1};
-  // },
-  
+
+  getInitialState: function() {
+    return {pageNum: 1};
+  },
 
   handlePagingClick: function(type) {
-   //e.preventDefault();
-   // console.log(this.state.page);
-   //console.log(type);
    
    if (type == "next") {
-     //var newPage = this.props.pagingInfo.curPage + 1;
      var newPage = this.props.curPage + 1;
    } else if (type == "prev") {
-     //var newPage = this.props.pagingInfo.curPage - 1;
      var newPage = this.props.curPage - 1;
    } else if (type == "last") {
-     //var newPage = this.props.pagingInfo.numOfPages;
      var newPage = this.props.numOfPages;
    } else if (type == "first") {
      var newPage = 1;
    }
 
+   this.setState ({pageNum: newPage});
+  //if (newPage == 1) {
+  //  $('prevButton').prop('disabled', true);
+   // $('prevButton').addClass('disabled');
+
+  
+
+  
 
     this.props.onPagingClick({curPage: newPage});
     //this.setState({page: this.props.pagingInfo.curPage});
 
+  },
+
+  dynamicClassPrev: function(){
+    if (this.state.pageNum == 1) {
+     return "btn disabled" 
+    }
+    else {
+      return "btn active"
+    }
+  },
+
+  dynamicClassNext: function(){
+    if (this.state.pageNum == this.props.numOfPages) {
+     return "btn disabled" 
+    }
+    else {
+      return "btn active"
+    }
   },
 
   render: function() {
@@ -37,12 +56,12 @@ var Pagination = React.createClass({
     	    <nav>
 			  <ul className="pagination pull-right">
 			    <li>
-			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'first')} aria-label="First">
+			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'first')} className={this.dynamicClassPrev()} aria-label="First">
 			        <span aria-hidden="true">&laquo;</span>
 			      </a>
 			    </li>
 			    <li>
-			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'prev')} aria-label="Previous">
+			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'prev')} className={this.dynamicClassPrev()} aria-label="Previous">
 			        <span aria-hidden="true">&lsaquo;</span>
 			      </a>
 			    </li>
@@ -50,12 +69,12 @@ var Pagination = React.createClass({
 			    <li className="active"><a>{this.props.curPage}</a></li>
 			    
 			    <li>
-			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'next')} aria-label="Next">
+			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'next')} className={this.dynamicClassNext()} aria-label="Next">
 			        <span aria-hidden="true">&rsaquo;</span>
 			      </a>
 			    </li>
 			    <li>
-			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'last')} aria-label="Last">
+			      <a href="javascript:;" onClick={this.handlePagingClick.bind(this, 'last')} className={this.dynamicClassNext()} aria-label="Last">
 			        <span aria-hidden="true">&raquo;</span>
 			      </a>
 			    </li>

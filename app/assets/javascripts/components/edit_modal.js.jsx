@@ -20,6 +20,13 @@ var EditModal = React.createClass({
     		};
   },
 
+  handleClose: function() {
+    this.setState({
+                questionToEdit: "",
+                answerToEdit: "",
+                distractorsToEdit: ""
+                });
+  },
 
   // componentWillMount: function() {
   //       this.setState({
@@ -91,7 +98,7 @@ var EditModal = React.createClass({
 		        
 		      </div>
 		      <div className="modal-footer">
-		        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button onClick={this.handleClose} type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
 		        <button onClick={this.handleSubmitEdit} type="button" className="btn btn-primary">Save changes</button>
 		      </div>
 		    </div>

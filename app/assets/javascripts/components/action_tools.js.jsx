@@ -10,13 +10,15 @@ var ActionTools = React.createClass({
 
     	  <div className="btn-toolbar col-sm-6">
 
-          
+               
 			  <button type="button" data-toggle="modal" data-target="#addModal" className="btn btn-primary">Add question</button>
+			  
+			  
 			  <button onClick={this.handleRandomQuestion} type="button" data-toggle="modal" data-target="#randomQuestion" className="btn btn-primary">
 			    Show random question
 			  </button>
 			  
-
+			  
 			  <div className="btn-group" role="group">
 			    <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      Filters

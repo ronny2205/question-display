@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+	
   def index
     if params[:rand].present?
   	    # Displaying a random question
