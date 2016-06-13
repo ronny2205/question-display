@@ -22,17 +22,7 @@ var Pagination = React.createClass({
    }
 
    this.setState ({pageNum: newPage});
-  //if (newPage == 1) {
-  //  $('prevButton').prop('disabled', true);
-   // $('prevButton').addClass('disabled');
-
-  
-
-  
-
-    this.props.onPagingClick({curPage: newPage});
-    //this.setState({page: this.props.pagingInfo.curPage});
-
+   this.props.onPagingClick({curPage: newPage});
   },
 
   dynamicClassPrev: function(){

@@ -36,6 +36,15 @@ var EditModal = React.createClass({
   //       			});
   //       },
 
+
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({
+         questionToEdit: nextProps.questionToEdit,
+           answerToEdit: nextProps.answerToEdit,
+           distractorsToEdit: nextProps.distractorsToEdit
+    });
+  },
+
   handleQChange: function(e) {
     this.setState({questionToEdit: e.target.value});
   },

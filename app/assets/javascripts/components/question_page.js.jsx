@@ -88,7 +88,7 @@ var QuestionPage = React.createClass({
 
       success: function(data) {
       	  // refreshing the list of questions
-  		  this.retrieveData(this.state.curPage);
+  		  this.retrieveData(this.state.curPage, this.state.filterType);
   	  }.bind(this),
       error: function(xhr, status, err) {
         console.error(status, err.toString());
@@ -109,7 +109,7 @@ var QuestionPage = React.createClass({
 
       success: function(data) {
       	  // refreshing the list of questions
-  		  this.retrieveData(this.state.curPage);
+  		  this.retrieveData(this.state.curPage, this.state.filterType);
   	  }.bind(this),
       error: function(xhr, status, err) {
         console.error(status, err.toString());
