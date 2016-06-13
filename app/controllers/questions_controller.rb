@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
 	      pagination
 	  	else
 	  	  # Displaying all questions in the db in json format	
-	  	  @questions = Question.order('id asc').all
+	  	  @questions = Question.order('id').all
 	  	  render json: @questions
 	  	end 
 	end  	 
@@ -40,8 +40,9 @@ class QuestionsController < ApplicationController
      first_ind = 9 * (@page_num.to_i - 1)
      last_ind = first_ind + 8
 
+     ordered_questions = Question.order('id').all
      @current_questions = []
-     Question.all.each_with_index do |q, i|
+     ordered_questions.each_with_index do |q, i|
          if i >= first_ind 
            if i <= last_ind
          	@current_questions << q
