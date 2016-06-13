@@ -67,7 +67,7 @@ var EditModal = React.createClass({
 		        <form>  
 		          <div className="form-group">
 		            <label htmlFor="question-content" className="form-control-label">Question:</label>
-		            <textarea className="form-control" id="question-content" value={this.state.questionToEdit} onChange={this.handleQChange}></textarea>
+		            <input className="form-control" id="question-content" value={this.state.questionToEdit} onChange={this.handleQChange}></input>
 		          </div>
 		          <div className="form-group">
 		            <label htmlFor="answer-content" className="form-control-label">Answer:</label>

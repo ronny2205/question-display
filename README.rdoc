@@ -1,28 +1,50 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Question Doohickey
 
-Things you may want to cover:
+* A RESTful API for a data dump of questions, plus a simple front-end to consume the API. The API uses standard HTTP verbs, and allows users to get a list of all questions, a list of filtered questions and a single random question. Results are paginated. Users can edit and add questions.
 
-* Ruby version
+* The data dump is processed in lib/tasks/question.rake through a rake command.
+  (The data file is in lib/assests)
 
-* System dependencies
+* The front end was built with React.js, using the react-rails gem and bootstrap, and is deployed at https://question-display-ronny.herokuapp.com.
 
-* Configuration
+The React components can be found at app/assets/javascripts/components and are rendered in app/views/landing_pages/index.html.erb
 
-* Database creation
+The hierarchy of the components is as follows:
 
-* Database initialization
+QuestionPage
+    PageHeader
+    ActionTools
+    QuestionList
+        QuestionBox
+    Pagination
+    RandomQuestion
+    EditModal
+    AddModal
 
-* How to run the test suite
+  
+* The API was built with Ruby on Rails and can be accessed at https://question-display-ronny.herokuapp.com/questions
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The API code is here:
+app/controllers/questions_controller.rb
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+A few things to keep in mind since it is an example app only:
+
+1. In order to keep the app simple, I just passed the data through a parent component rather than implementing redux.
+
+2. I didn't implement any authentication on the API.
+
+3. Ideally, part of that code could be moved from the controller to the model. But since it a small amount of code, I decided to keep it all togethe.
+
+4. When a user adds or edits a question, I check validation only for empty fields. (And not for right/wrong answer, spelling, etc...)
+
+5. I used two different modal components for Editing and Adding a question. Ideally, I would unify them to one component. 
+
+6. When a user adds a question, the new question appears on the last page. When a user edits a question, the change appears in the current page.
+
+
+
+
+
