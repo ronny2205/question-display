@@ -9,25 +9,24 @@ Question Doohickey
 
 * The front end was built with React.js, using the react-rails gem and bootstrap, and is deployed at https://question-display-ronny.herokuapp.com.
 
-The React components can be found at app/assets/javascripts/components and are rendered in app/views/landing_pages/index.html.erb
+* The React components can be found at app/assets/javascripts/components and are rendered in app/views/landing_pages/index.html.erb
 
-The hierarchy of the components is as follows:
+* The hierarchy of the components is as follows:
 
-QuestionPage
-    PageHeader
-    ActionTools
-    QuestionList
+    QuestionPage
+      PageHeader
+      ActionTools
+      QuestionList
         QuestionBox
-    Pagination
-    RandomQuestion
-    EditModal
+      Pagination
+      RandomQuestion
+      EditModal
     AddModal
 
   
 * The API was built with Ruby on Rails and can be accessed at https://question-display-ronny.herokuapp.com/questions
 
-The API code is here:
-app/controllers/questions_controller.rb
+* The API code is here: app/controllers/questions_controller.rb
 
 
 A few things to keep in mind since it is an example app only:
@@ -43,8 +42,3 @@ A few things to keep in mind since it is an example app only:
 5. I used two different modal components for Editing and Adding a question. Ideally, I would unify them to one component. 
 
 6. When a user adds a question, the new question appears on the last page. When a user edits a question, the change appears in the current page.
-
-
-
-
-
