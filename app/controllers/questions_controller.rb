@@ -63,9 +63,10 @@ class QuestionsController < ApplicationController
     last_ind = first_ind + 8
 
     @current_questions = relevant_questions[first_ind..last_ind]
-     @current_questions << @num_of_pages
-     render json: @current_questions
-   end 
+    # @current_questions << @num_of_pages
+    @current_questions << {"number_of_pages" => @num_of_pages}
+    render json: @current_questions
+  end 
    
   private
 

@@ -9,7 +9,7 @@ var QuestionPage = React.createClass({
     var component = this;
 	$.get("/questions?page=" + page_num + "&filter=" + filterType).success( function( data ) {
 	  // Separate the num of pages from the questions array
-	  var numOfPages = data.pop();
+	  var numOfPages = data.pop().number_of_pages;
 	  component.setState({data: data,
 		      			  numOfPages: numOfPages,
 		      			  curPage: page_num,
@@ -30,7 +30,7 @@ var QuestionPage = React.createClass({
   	// Get the first page of the filtered questions
   	$.get("/questions?filter=" + info.filterType + "&page=1").success( function( data ) {
         // Separate the num of pages from the questions array
-	   	var numOfPages = data.pop();
+	   	var numOfPages = data.pop().number_of_pages;;
 		this.setState({data: data, 
 					  filterType: info.filterType,
 					  numOfPages: numOfPages,
