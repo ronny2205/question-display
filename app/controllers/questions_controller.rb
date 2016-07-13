@@ -62,16 +62,7 @@ class QuestionsController < ApplicationController
     first_ind = 9 * (page_num.to_i - 1)
     last_ind = first_ind + 8
 
-    @current_questions = []
-    relevant_questions.each_with_index do |q, i|
-      if i >= first_ind 
-        if i <= last_ind
-          @current_questions << q
-        else
-          break
-        end
-      end    	
-     end
+    @current_questions = relevant_questions[first_ind..last_ind]
      @current_questions << @num_of_pages
      render json: @current_questions
    end 
