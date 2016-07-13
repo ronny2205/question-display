@@ -8,7 +8,11 @@ class QuestionsController < ApplicationController
 
     if rand.present?
   	  # Displaying a random question
-  	  render json: Question.order("RANDOM()").first
+      if rand == "yes"
+  	    render json: Question.order("RANDOM()").first
+      else
+        render :text => 'Bad request', :status => :bad_request  
+      end  
     else 
       # An ordered array of all the questions
       ordered_questions = Question.order('id').all

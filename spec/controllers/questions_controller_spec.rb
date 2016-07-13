@@ -10,6 +10,22 @@ RSpec.describe QuestionsController, type: :controller do
       response_value = ActiveSupport::JSON.decode(@response.body)
       expect(response_value.count).to eq(2)
     end
+
+    it "should show a random question" do
+      q1 = FactoryGirl.create(:question)
+      q2 = FactoryGirl.create(:question)
+      get :index, :rand => 'yes'
+      expect(response).to have_http_status :success
+      # response_value = ActiveSupport::JSON.decode(@response.body)
+      # expect(response_value.count).to eq(2)
+    end
+
+    it "should return bad request status code" do
+      q1 = FactoryGirl.create(:question)
+      q2 = FactoryGirl.create(:question)
+      get :index, :rand => '5'
+      expect(response).to have_http_status :bad_request
+    end
   end
 
   describe "question#create" do
