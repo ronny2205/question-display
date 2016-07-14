@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   def index
     # Params received from the get request
     rand = params[:rand] # for random question display
-    page_num = params[:page] # page number for pagination
+    page_num = params[:page].to_i # page number for pagination
     filter = params[:filter]  # for filtering questions
 
     if rand.present?
@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
       if rand == "yes"
   	    render json: Question.order("RANDOM()").first
       else
-        render :text => 'Bad request', :status => :bad_request  
+        return render :text => 'Bad request', :status => :bad_request  
       end  
     else 
       # An ordered array of all the questions
@@ -22,18 +22,21 @@ class QuestionsController < ApplicationController
         relevant_questions = []
         # Filtering by positive answer
         if filter == "positive"		
-	      ordered_questions.each do |q|
-	        relevant_questions << q if q.answer.to_i > 0  
-	      end
-	    # Filtering by negative answer   
-	    elsif filter == "negative"
-	      ordered_questions.each do |q|
-	        relevant_questions << q if q.answer.to_i < 0  
-	      end
-	    # All questions   
-	    elsif filter == "all"
-	      relevant_questions = ordered_questions
-	    end   
+  	      ordered_questions.each do |q|
+  	        relevant_questions << q if q.answer.to_i > 0  
+  	      end
+  	    # Filtering by negative answer   
+  	    elsif filter == "negative"
+  	      ordered_questions.each do |q|
+  	        relevant_questions << q if q.answer.to_i < 0  
+  	      end
+  	    # All questions   
+  	    elsif filter == "all"
+  	      relevant_questions = ordered_questions
+        # Return error for a non valid filter  
+        else
+          return render :text => 'No such filter', :status => :bad_request
+  	    end   
         # Pagination of all relevant questions in json format	
         pagination(relevant_questions, page_num)
 	  else
@@ -46,12 +49,20 @@ class QuestionsController < ApplicationController
   def update
   	question = Question.find(params[:id])
     question.update_attributes(question_params)
-    render json: question
+    if question.save
+      render json: question
+    else
+      render :text => 'The question was not updated', status => :internal_server_error
+    end
   end
 
   def create
   	question = Question.create(question_params)
-    render json: question
+    if question.save
+      render json: question
+    else
+      render :text => 'The question was not updated', status => :internal_server_error
+    end
   end
 
   def pagination(relevant_questions, page_num)
@@ -62,6 +73,12 @@ class QuestionsController < ApplicationController
     else
       @num_of_pages = questions_num / 9 + 1
     end  
+
+    # Return error for a non valid filter 
+    if page_num > @num_of_pages
+      return render :text => 'No such page', :status => :bad_request 
+    end
+      
     # The index of the first question of the current page
     first_ind = 9 * (page_num.to_i - 1)
     last_ind = first_ind + 8
