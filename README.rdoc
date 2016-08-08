@@ -35,7 +35,7 @@ A few things to keep in mind since it is an example app only:
 
 2. I didn't implement any authentication on the API.
 
-3. Ideally, part of that code could be moved from the controller to the model. But since it a small amount of code, I decided to keep it all togethe.
+3. Ideally, part of that code could be moved from the controller to the model. But since it a small amount of code, I decided to keep it all together.
 
 4. When a user adds or edits a question, I check validation only for empty fields. (And not for right/wrong answer, spelling, etc...)
 
