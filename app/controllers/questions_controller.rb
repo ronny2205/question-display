@@ -74,7 +74,7 @@ class QuestionsController < ApplicationController
       @num_of_pages = questions_num / 9 + 1
     end  
 
-    # Return error for a non valid filter 
+    # Return an error for a non valid page number 
     if page_num > @num_of_pages
       return render :text => 'No such page', :status => :bad_request 
     end
